@@ -24,6 +24,31 @@ const Client = require('./Client.js');
 
 
 mongoose.connect(process.env.CLIENTDB_URL);
-console.log('DataBase connected....');
-process.exit(0);
 
+mongoose.connection.on('open', () => {
+  
+  console.log('DataBase connected....');
+  populateClients();
+
+})// mongoose.connection
+
+
+async function populateClients(){
+
+  const deletedClients = await Client.deleteMany();
+  console.log('Deleted Client List for seeding:', deletedClients);
+
+  try {
+
+    const createdClients = await Client.create( seedClients );
+    console.log('Created Client List:', createdClients);
+
+    process.exit(0);
+
+  } catch(err){
+    console.log('There was an error creating Clients...', err.message);
+  }
+
+  process.exit(0);
+
+}// populateClients()

@@ -14,6 +14,7 @@
 # misc
 frontend/.env
 /backend/models/.env
+/backend/.env
 
 .DS_Store
 .env.local

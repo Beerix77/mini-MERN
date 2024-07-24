@@ -1,21 +1,59 @@
 
 const express = require('express');
-// const { Aggregate } = require('mongoose');
 const app = express();
-const PORT = 3333;
+const PORT = process.env.PORT || 3333 ;
+require('dotenv').config();
 
 
 app.listen( PORT, () => {
   console.log(`Web server listening on http://localhost:${PORT}`);
 });
 
+app.use(express.json());
+app.use(express.urlencoded( {extended: true} ));
 
-app.get('/', (req, res) => {
+const mongoose = require('mongoose');
+const Client = require('./models/Client.js');
 
-  console.log('home');
-  res.send(`Welcome to webserver`)
+mongoose.connect(process.env.CLIENTDB_URL);
+
+
+//*CREATE
+
+//*READ
+app.get('/clients', async (req, res) => {
+
+  const allClients = await Client.find().select('name');
+  //console.log('All clients (by name):', allClients);
+  res.json(allClients);
 
 });
+
+
+app.get('/clients/:id', async(req, res) => {
+
+  
+
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+//*UPDATE
+//*DELETE
+
+
+
+
 
 
 
