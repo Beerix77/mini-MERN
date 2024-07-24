@@ -17,7 +17,13 @@ const seedClients = [
 
 ];// seedClients
 
+
+require('dotenv').config();
 const mongoose = require('mongoose');
 const Client = require('./Client.js');
 
-mongoose.connect('mongodb+srv://andrewmatysiak:XAAi5Q1MWrK817QX@andrew-database.6rzqzap.mongodb.net/clientDB?retryWrites=true&w=majority&appName=andrew-database')
+
+mongoose.connect(process.env.CLIENTDB_URL);
+console.log('DataBase connected....');
+process.exit(0);
+

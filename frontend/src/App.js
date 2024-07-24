@@ -14,6 +14,6 @@ function App() {
       </label>
     </div>
   );
-}
+}// App()
 
 export default App;
