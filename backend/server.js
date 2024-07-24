@@ -1,7 +1,8 @@
 
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3333 ;
+const PORT = process.env.PORT || 3334 ;
+const DEFAULT_PATH = '/clients';
 require('dotenv').config();
 
 
@@ -21,17 +22,24 @@ mongoose.connect(process.env.CLIENTDB_URL);
 //*CREATE
 app.post('/clients/new', (req, res) => {
 
-  //*USE REACT FRONTEND <FORM>  
+  //*USE REACT FRONTEND <FORM>
+    
 
 });
 
 
-app.post('/clients', (req, res) => {
+app.post('/clients', async (req, res) => {
 
   try {
-    
+
+    const createdClient = await Client.create( {name: req.body.name} );
+    res.json(createdClient);
+
   } catch(err) {
+
+    res.status(422).json({error: err.message})
     console.log('There was an error...', err.message);
+
   }
 
 });
@@ -42,16 +50,12 @@ app.post('/clients', (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
 //*READ
+app.get('/', (req, res) => {
+  res.redirect(DEFAULT_PATH);
+});
+
+
 app.get('/clients', async (req, res) => {
 
   const allClients = await Client.find().select('name');
@@ -73,6 +77,7 @@ app.get('/clients/:id', async(req, res) => {
     }
 
   } catch(err) {
+    res.status(404).json( {error: err.message} );
     console.log('There was an error loading client by ID...', err.message);
   }
 

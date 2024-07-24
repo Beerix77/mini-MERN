@@ -1,17 +1,10 @@
 import './App.css';
+import ClientForm from './ClientForm';
 
 function App() {
   return (
     <div className="App">
-      <label>
-        <form>
-          <input type="text" placeholder="Client Name"/>
-        </form>
-        <form>
-          <input type="text" placeholder="Client Age"/>
-        </form>
-        <button>Submit</button>
-      </label>
+      <ClientForm />
     </div>
   );
 }// App()
