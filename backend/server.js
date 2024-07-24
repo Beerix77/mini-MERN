@@ -19,6 +19,37 @@ mongoose.connect(process.env.CLIENTDB_URL);
 
 
 //*CREATE
+app.post('/clients/new', (req, res) => {
+
+  //*USE REACT FRONTEND <FORM>  
+
+});
+
+
+app.post('/clients', (req, res) => {
+
+  try {
+    
+  } catch(err) {
+    console.log('There was an error...', err.message);
+  }
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //*READ
 app.get('/clients', async (req, res) => {
@@ -32,17 +63,20 @@ app.get('/clients', async (req, res) => {
 
 app.get('/clients/:id', async(req, res) => {
 
-  
+  try {
+    const clientSelect = await Client.findOne( {_id: req.params.id} );
 
+    if(clientSelect === null){
+      res.sendStatus(404);
+    } else {
+      res.json( clientSelect );
+    }
 
-})
+  } catch(err) {
+    console.log('There was an error loading client by ID...', err.message);
+  }
 
-
-
-
-
-
-
+})// READ
 
 
 
