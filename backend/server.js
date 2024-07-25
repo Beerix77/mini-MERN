@@ -19,13 +19,6 @@ const Client = require('./models/Client.js');
 mongoose.connect(process.env.CLIENTDB_URL);
 
 
-// app.get('/search', (req, res) => {
-//   // Access the 'name' query parameter from the URL
-//   const searchName = req.query.name;
-//   res.send(`Search name is ${searchName}`);
-// });
-
-// If you make a request to /search?name=John, req.query.name will be 'John'.
 
 
 
@@ -120,31 +113,17 @@ app.get('/clients/:id', async(req, res) => {
 
 //*UPDATE
 //*DELETE
+app.get('/clients/:id/delete', async (req, res) => {
 
-/*req.params: This object contains route parameters from the URL path. Route parameters are used to capture values from the URL. They are defined in the route path using a colon (:) and are typically used for dynamic URLs. For example:
+  try {
+    
+  } catch(err) {
+    console.log('There was an error...', err.message);
+    res.status(422).json({err: message})
+  }
 
-javascript
-
-app.get('/user/:name', (req, res) => {
-  // Access the 'name' parameter from the URL
-  const userName = req.params.name;
-  res.send(`User name is ${userName}`);
 });
 
-If you make a request to /user/John, req.params.name will be 'John'.
-
-req.query: This object contains query parameters from the URL, which are typically used for optional parameters. Query parameters are included in the URL after a question mark (?) and are often used for filtering, sorting, or other purposes. For example:
-
-javascript
-
-app.get('/search', (req, res) => {
-  // Access the 'name' query parameter from the URL
-  const searchName = req.query.name;
-  res.send(`Search name is ${searchName}`);
-});
-
-If you make a request to /search?name=John, req.query.name will be 'John'.
-*/
 
 
 
