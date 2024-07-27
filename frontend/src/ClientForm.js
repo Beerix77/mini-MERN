@@ -1,10 +1,11 @@
 import { useState } from 'react';
 
 
+
 function ClientForm(){
 
   const [nameInputText, setNameInputText] = useState("");
-  const [ageInputText, setAgeInputText] = useState(null);
+  const [ageInputText, setAgeInputText] = useState(0);
 
 
 

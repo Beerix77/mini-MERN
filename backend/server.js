@@ -1,8 +1,11 @@
 const axios = require('axios');
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3334 ;
+const PORT = process.env.PORT || 3337 ;
 const DEFAULT_PATH = '/clients';
+const cors = require('cors');
+
+
 require('dotenv').config();
 
 
@@ -10,6 +13,7 @@ app.listen( PORT, () => {
   console.log(`Web server listening on http://localhost:${PORT}`);
 });
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded( {extended: true} ));
 
@@ -20,39 +24,15 @@ mongoose.connect(process.env.CLIENTDB_URL);
 
 
 
-
-
 //*CREATE:
-//*1. has to be a GET
-app.get('/clients/add', async (req, res) => { 
-  
-  const inputName = req.query.name;
-  const inputAge = req.query.age;
-
-  console.log('Received "name" data to server from UI:', inputName);
-  console.log('Received "age" data to server from UI:', inputAge);
-
-  try {
-    const response = await axios.post(`http://localhost:${PORT}/clients`, {
-      name: inputName,
-      age: inputAge
-    })
-
-    res.send('Client added: ' + JSON.stringify(response.data));
-
-  } catch (error) {
-    res.status(500).send('Error adding client: ' + error.message);
-  }
-});
-
-
-
-
-
 //*2.
-app.post('/clients', async (req, res) => {
+app.post('/clients/add', async (req, res) => {
 
   try {
+
+    console.log('the req.body.name:', req.body.name);
+    console.log('the req.body.age:', req.body.age);
+
 
     const createdClient = await Client.create( {
       name: req.body.name,
@@ -66,11 +46,7 @@ app.post('/clients', async (req, res) => {
     console.log('There was an error...', err.message);
   }
 
-});
-
-
-
-
+});// CREATE
 
 
 
@@ -82,8 +58,7 @@ app.get('/', (req, res) => {
 
 app.get('/clients', async (req, res) => {
 
-  const allClients = await Client.find().select('name');
-  //console.log('All clients (by name):', allClients);
+  const allClients = await Client.find().select('name age'); 
   res.json(allClients);
 
 });
@@ -109,10 +84,12 @@ app.get('/clients/:id', async(req, res) => {
 
 
 
-
-
 //*UPDATE
-//*DELETE
+
+
+
+
+//*DELETE 
 app.get('/clients/:id/delete', async (req, res) => {
 
   try {
@@ -122,7 +99,7 @@ app.get('/clients/:id/delete', async (req, res) => {
     res.status(422).json({err: message})
   }
 
-});
+});// DELETE
 
 
 
