@@ -1,12 +1,11 @@
-const axios = require('axios');
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3337 ;
 const DEFAULT_PATH = '/clients';
 const cors = require('cors');
+const dotenv = require('dotenv'); //
 
-
-require('dotenv').config();
+dotenv.config(); //or require('dotenv').config()
 
 
 app.listen( PORT, () => {

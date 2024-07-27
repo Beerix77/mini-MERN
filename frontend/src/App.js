@@ -4,9 +4,12 @@ import ClientFrontend from './ClientFrontend';
 
 function App() {
   return (
-    <div className="App">
-      <ClientFrontend />
-    </div>
+    <>
+      <h2>Enter Client details:</h2>
+      <div className="App">
+        <ClientFrontend />
+      </div>
+    </>
   );
 }// App()
 
