@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+const PORT = process.env.PORT || 3337;
 
 function ClientFrontend(){
 
@@ -28,7 +29,7 @@ function ClientFrontend(){
 
     try {
       console.log('FORM DATA:', formData);
-      await axios.post('http://localhost:3337/clients/add', formData);
+      await axios.post(`http://localhost:${PORT}/clients/add`, formData);
 
     } catch (err) {
       console.error('Error submitting data (FRONTEND):', err);

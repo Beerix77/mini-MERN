@@ -42,7 +42,7 @@ app.post('/clients/add', async (req, res) => {
 
   } catch(err) {
     res.status(422).json({error: err.message})
-    console.log('There was an error...', err.message);
+    console.log('There was an error...unable to create', err.message);
   }
 
 });// CREATE
@@ -89,13 +89,19 @@ app.get('/clients/:id', async(req, res) => {
 
 
 //*DELETE 
-app.get('/clients/:id/delete', async (req, res) => {
+app.delete('/clients/:id', async (req, res) => {
 
   try {
+    const {id} = req.params;
+    const client = await Client.findByIdAndDelete(id);
+    if(!client){
+      return res.status(404).json({error: `Cannot find client with ID: ${id}`});
+    } 
+    res.status(200).json(client);
     
   } catch(err) {
-    console.log('There was an error...', err.message);
-    res.status(422).json({err: message})
+    console.log('There was an error deleting...', err.message);
+    res.status(422).json({err: err.message})
   }
 
 });// DELETE
